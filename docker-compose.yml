@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/var/www/html:cached
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+  php:
+    build: .
+    volumes:
+      - ./app:/var/www/html:cached
+    environment:
+      - PHP_EXTENSIONS=amqp,ast,bcmath,bz2,calendar,Core,csv,ctype,curl,date,dba,decimal,dom,ds,enchant,ev,event,excimer,exif,FFI,fileinfo,filter,ftp,gd,geospatial,gettext,gmp,gnupg,grpc,hash,http,iconv,igbinary,imagick,imap,inotify,intl,json,json_post,ldap,libsmbclient,libxml,lzf,mailparse,maxminddb,mbstring,mcrypt,memcache,memcached,mysqli,mysqlnd,oauth,oci8,odbc,opencensus,openssl,openswoole,pcntl,pcov,pcre,pdo,pdo_dblib,pdo_firebird,pdo_mysql,pdo_oci,pdo_odbc,pdo_pgsql,pdo_sqlite,pdo_sqlsrv,pgsql,Phar,posix,pspell,raphf,readline,redis,Reflection,SeasLog,session,shmop,SimpleXML,smbclient,snmp,soap,sockets,sodium,SPL,sqlite3,sqlsrv,ssh2,standard,tokenizer,uuid,xdebug,xml,xmldiff,xmlreader,xmlrpc,xmlwriter,xsl,yac,yaml,yar,Zend_OPcache,zend_test,zephir_parser,zip,zlib,zstd
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=prueba
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - MYSQL_ROOT_PASSWORD=admin  # Asegúrate de que coincida con la contraseña de root de MySQL
+
+volumes:
+  mysql: {}
+

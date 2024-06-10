@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Este proyecto configura un entorno LEMP (Linux, Nginx, MySQL, PHP) utilizando Docker. Incluye servicios para una aplicación web basada en PHP, una base de datos MySQL y phpMyAdmin para la administración de la base de datos.
+Este proyecto configura un entorno LEMP (Linux, Nginx, MySQL, PHP) utilizando Docker. Incluye servicios para una aplicación web basada en PHP 8.3, una base de datos MySQL y phpMyAdmin para la administración de la base de datos.
 
 ## Requisitos
 
